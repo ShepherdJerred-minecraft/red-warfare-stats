@@ -1,0 +1,62 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300,800);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+@import "navbar.scss";
+@import "footer.scss";
+@import "profiles.scss";
+@import "leaderboards.scss";
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+a {
+  color: #000;
+}
+
+a:hover {
+  color: #000;
+}
+
+::selection {
+  color: #fff;
+  background-color: #000;
+}
+
+.header {
+  padding-top: 72px;
+  text-align: center;
+  background-image: url("http://www.redwarfare.com/styles/backgrounds/new.jpg");
+  background-position: center;
+
+  @media screen and (max-width: 768px) {
+    padding-top: 173px;
+  }
+
+  div {
+    padding: 20vh 0;
+  }
+
+  h1, h2 {
+    color: #fff;
+  }
+
+  h1 {
+    font-size: 5vh;
+  }
+
+  h2 {
+    font-size: 2.5vh;
+  }
+}

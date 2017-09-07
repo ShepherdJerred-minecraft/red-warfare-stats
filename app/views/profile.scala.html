@@ -1,0 +1,169 @@
+@(player: models.Player)
+
+@components.base(title = "Player | Red Warfare Stats") {
+    @components.navbar()
+
+    <div class="pure-g profile">
+        <div class="pure-u-1">
+            <div class="header">
+                <div>
+                    <h1>@player.getName</h1>
+                    <h2>Skill Rating: @player.getScore</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="background">
+
+            <div class="pure-u-lg-1-5"></div>
+
+            <div class="pure-u-lg-1-5 pure-u-1">
+                <div class="avatar-holder">
+                    <img class="pure-img" src="http://cravatar.eu/3d/@player.getUuid/512.png">
+                </div>
+                <div class="list">
+                    <button class="pure-button pure-button-primary">Search and Destroy</button><br>
+                    <button class="pure-button">Survival Games</button>
+                </div>
+            </div>
+
+            <div class="pure-u-lg-2-5 pure-u-1 stats">
+
+                <div class="general">
+                    <h2>Search and Destroy Overall</h2>
+                    <div class="pure-g">
+                        <div class="pure-u-1-2 pure-u-sm-1-3">
+                            Kills: @player.getOverall.get("Search and Destroy").getKills<br>
+                            Deaths: @player.getOverall.get("Search and Destroy").getDeaths<br>
+                            Assists: @player.getOverall.get("Search and Destroy").getAssists<br>
+                            Killstreak: @player.getOverall.get("Search and Destroy").getKillstreak<br>
+                            KDR: @player.getOverall.get("Search and Destroy").getKillDeathRatio
+                        </div>
+                        <div class="pure-u-1-2 pure-u-sm-1-3">
+                            Total Games: @player.getOverall.get("Search and Destroy").getTotalGames<br>
+                            Wins: @player.getOverall.get("Search and Destroy").getWins<br>
+                            Losses: @player.getOverall.get("Search and Destroy").getLosses<br>
+                            WLR: @player.getOverall.get("Search and Destroy").getWinLossRatio
+                        </div>
+                        <div class="pure-u-1-2 pure-u-sm-1-3 skill">
+                            Bombs Defused: @player.getOverall.get("Search and Destroy").getUniqueIntegers.get("Defused")<br>
+                            Bombs Armed: @player.getOverall.get("Search and Destroy").getUniqueIntegers.get("Armed")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pure-g kits">
+
+                @for(kit <- player.getKits) {
+                    <div class="pure-u-lg-1-3 pure-u-1">
+                        <div class="kit" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/assets/images/kits/@kit._1.toString.toLowerCase().concat(".jpg"))">
+                            <h2>@kit._1</h2>
+                            <div class="pure-g">
+                                <div class="pure-u-lg-1 pure-u-1-2">
+                            Kills: @kit._2.getKills <br>
+                                    Deaths: @kit._2.getDeaths <br>
+                                    Assists: @kit._2.getAssists <br>
+                                    Killstreak: @kit._2.getKillstreak <br>
+                                    KDR: @kit._2.getKillDeathRatio <br>
+                                    @if(kit._1.equals(Kit.KitName.MEDIC)) {
+                                        Heals: @kit._2.getUniqueIntegers.get("Heals")
+                                    }
+                        </div>
+                                <div class="pure-u-lg-1 pure-u-1-2">
+                            Total Games: @kit._2.getTotalGames <br>
+                                    Wins: @kit._2.getWins <br>
+                                    Losses: @kit._2.getLosses <br>
+                                    WLR: @kit._2.getWinLossRatio
+
+                                    @if(!kit._1.equals(Kit.KitName.MEDIC)) {
+                                        <br> <br>
+                                        }
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                </div>
+
+                <div class="pure-g graphs">
+                    <div class="pure-u-1">
+                        <canvas id="kits" width="100%" height="100%"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script>
+        var ctx = document.getElementById("kits");
+        var myChart = new Chart(ctx, {
+        type: 'bar',
+    data: {
+        labels: [@for(kit <- player.getKits) { "@kit._1", }],
+        datasets: [{
+            label: 'Kills',
+            data: [@for(kit <- player.getKits) { @kit._2.getKills, }],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)'
+            ]
+        },
+        {
+            label: 'Wins',
+            data: [@for(kit <- player.getKits) { @kit._2.getWins, }],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+            ]
+        }
+        ]
+    }
+});
+    </script>
+
+
+} {
+    @components.footer()
+}
+
+

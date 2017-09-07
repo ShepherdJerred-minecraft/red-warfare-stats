@@ -1,0 +1,24 @@
+@components.base(title = "Home | Red Warfare Stats") {
+    @components.navbar()
+    <div class="pure-g selector">
+        <div class="pure-u-1">
+            <div class="header">
+                <div>
+                    <h1>Leaderboards</h1>
+                    <h2>Select a gamemode to view</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1-4">
+
+        </div>
+
+        <div class="pure-u-1-2 list">
+            <a href="/leaderboards/SEARCH_AND_DESTROY"><button class="pure-button">Search and Destroy</button></a><br>
+            <a href="/leaderboards/SURVIVAL_GAMES"><button class="pure-button">Survival Games</button></a>
+        </div>
+    </div>
+} {
+    @components.footer()
+}

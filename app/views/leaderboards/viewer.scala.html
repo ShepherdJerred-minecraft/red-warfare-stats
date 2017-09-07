@@ -1,0 +1,77 @@
+@(mode: Mode)
+@import java.math.BigInteger; var i = mode.getPage * 20 - 20
+
+@components.base(title = "Home | Red Warfare Stats") {
+    @components.navbar()
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <div class="header">
+                <div>
+                    <h1>Search and Destroy</h1>
+                    <h2>Ordered by @mode.getType.toString</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1-4">
+
+        </div>
+
+        <div class="pure-u-1-2">
+            <table class="pure-table leaderboard">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Username</th>
+                        <th><a href="/leaderboards/SEARCH_AND_DESTROY/KILLS/@if(mode.getType == Stats.Type.KILLS && mode.getSort == Leaderboards.Sort.DESC) {ASC} else {DESC}">Kills</a></th>
+                        <th><a href="/leaderboards/SEARCH_AND_DESTROY/DEATHS/@if(mode.getType == Stats.Type.DEATHS && mode.getSort == Leaderboards.Sort.DESC) {ASC} else {DESC}">Deaths</a></th>
+                        <th><a href="/leaderboards/SEARCH_AND_DESTROY/ASSISTS/@if(mode.getType == Stats.Type.ASSISTS && mode.getSort == Leaderboards.Sort.DESC) {ASC} else {DESC}">Assists</a></th>
+                        <th><a href="/leaderboards/SEARCH_AND_DESTROY/KILLSTREAK/@if(mode.getType == Stats.Type.KILLSTREAK && mode.getSort == Leaderboards.Sort.DESC) {ASC} else {DESC}">Killstreak</a></th>
+                        <th>KDR</th>
+                        <th><a href="/leaderboards/SEARCH_AND_DESTROY/WINS/@if(mode.getType == Stats.Type.WINS && mode.getSort == Leaderboards.Sort.DESC) {ASC} else {DESC}">Wins</a></th>
+                        <th><a href="/leaderboards/SEARCH_AND_DESTROY/LOSSES/@if(mode.getType == Stats.Type.LOSSES && mode.getSort == Leaderboards.Sort.DESC) {ASC} else {DESC}">Losses</a></th>
+                        <th>WLR</th>
+                        <th>Skill</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                @for(player <- mode.getPlayers) {
+                    @{
+                        i = i + 1
+                    }
+                    <tr>
+                        <td>@i</td>
+                        <td><b><a href="/profile/@player.getName">@player.getName</a></b></td>
+                        @if(player.getOverall.get("Search and Destroy") != null) {
+                            <td>@player.getOverall.get("Search and Destroy").getKills</td>
+                            <td>@player.getOverall.get("Search and Destroy").getDeaths</td>
+                            <td>@player.getOverall.get("Search and Destroy").getAssists</td>
+                            <td>@player.getOverall.get("Search and Destroy").getKillstreak</td>
+                            <td>@player.getOverall.get("Search and Destroy").getKillDeathRatio</td>
+                            <td>@player.getOverall.get("Search and Destroy").getWins</td>
+                            <td>@player.getOverall.get("Search and Destroy").getLosses</td>
+                            <td>@player.getOverall.get("Search and Destroy").getWinLossRatio</td>
+                        }
+                        <td>@player.getScore</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    @if(mode.getPage > 1) {
+                        <a href="/leaderboards/@mode.getMode.toString/@mode.getType.toString/@mode.getSort.toString/@{mode.getPage - 1}"><button class="pure-button">Previous</button></a>
+                    }
+                </div>
+                <div class="pure-u-1-2">
+                    <a href="/leaderboards/@mode.getMode.toString/@mode.getType.toString/@mode.getSort.toString/@{mode.getPage + 1}"><button class="pure-button">Next</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+} {
+    @components.footer()
+}

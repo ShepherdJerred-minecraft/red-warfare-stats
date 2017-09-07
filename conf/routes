@@ -1,0 +1,18 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                            controllers.Application.index
+GET         /profile/:input                              controllers.Profiles.profile(input)
+POST        /search                                      controllers.Profiles.search()
+GET         /leaderboards                                controllers.Leaderboards.selector()
+GET         /leaderboards/:mode                          controllers.Leaderboards.view(mode)
+GET         /leaderboards/:mode/:stat                    controllers.Leaderboards.viewStat(mode, stat)
+GET         /leaderboards/:mode/:stat/:sort              controllers.Leaderboards.viewSort(mode, stat, sort)
+GET         /leaderboards/:mode/:stat/:sort/:page        controllers.Leaderboards.viewPage(mode, stat, sort, page)
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                                controllers.Assets.at(path="/public", file)
+
+    

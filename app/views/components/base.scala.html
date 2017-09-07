@@ -1,0 +1,28 @@
+@(title: String)(content: Html)(footer: Html)
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+    <head>
+
+        <title>@title</title>
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Red Warfare stats page">
+        <meta name="author" content="Jerred Shepherd">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+
+    </head>
+
+    <body>
+    @content
+    </body>
+
+    @footer
+
+</html>

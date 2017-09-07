@@ -1,0 +1,110 @@
+nav.navbar {
+  padding: 20px 20px;
+  background: #D31027;
+  background: -webkit-linear-gradient(to left, #D31027, #EA384D);
+  background: linear-gradient(to left, #D31027, #EA384D);
+  position: fixed;
+  right: 0;
+  left: 0;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  z-index: 10;
+  height: 26px;
+  max-width: 100vw;
+
+  @media screen and (max-width: 768px) {
+    padding: 15px 0px;
+    height: auto;
+  }
+
+  input {
+    margin: 0 0 0 10px;
+    text-align: left;
+    display: block;
+    border-radius: 3px;
+    color: #fff;
+    background-color: darken(#D31027, 10%);
+    border: none;
+    padding: 5px 0px 5px 10px;
+    position: relative;
+    top: -3px;
+
+    &::-webkit-input-placeholder {
+      color: #fff;
+      margin-left: 20px;
+      font-weight: 300;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: #fff;
+      opacity: 1;
+    }
+
+    &:active, &:focus, &:hover {
+      outline: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+  }
+
+  ul {
+    text-align: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 3px;
+
+    li {
+      display: inline;
+      padding: 0;
+
+      a {
+        padding: 20px 15px;
+        display: inline;
+        text-decoration: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 300;
+
+        &:focus, &:hover, &:active {
+          color: complement(#D31027);
+        }
+
+        @media screen and (max-width: 768px) {
+          display: block;
+          padding: 15px 30vw;
+        }
+      }
+    }
+  }
+
+  .title {
+    text-align: left;
+    margin-bottom: 0px;
+    margin-left: 15px;
+
+    font-size: 20px;
+
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    @media screen and (max-width: 768px) {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  .navbar-right {
+    float: right;
+
+    @media screen and (max-width: 768px) {
+      float: none;
+    }
+  }
+}
